@@ -141,7 +141,7 @@ namespace GameOfLife
         {
             foreach (Rectangle r in Children)
             {
-                r.UpdateBrush();
+                r.UpdateFill();
             }
         }
 

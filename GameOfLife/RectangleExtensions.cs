@@ -31,7 +31,7 @@ namespace GameOfLife
             return ((RectangleTag)r.Tag).Row;
         }
 
-        public static void UpdateBrush(this Rectangle r)
+        public static void UpdateFill(this Rectangle r)
         {
             RectangleTag t = (RectangleTag)r.Tag;
             r.Fill = t.Board[t.Column, t.Row] ? RectangleFactory.aliveBrush : RectangleFactory.deadBrush;
@@ -41,7 +41,7 @@ namespace GameOfLife
         {
             RectangleTag t = (RectangleTag)r.Tag;
             t.Board[t.Column, t.Row] = !t.Board[t.Column, t.Row];
-            r.UpdateBrush();
+            r.UpdateFill();
         }
     }
 }
