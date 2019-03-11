@@ -106,5 +106,22 @@ namespace GameOfLife
             // All other conditions result in death.
             return false;
         }
+
+        public void Randomize()
+        {
+            Random r = new Random();
+            for (int y = 0; y < Height; y++)
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    this[x, y] = ((r.Next() % 2 == 0) ? false : true);
+                }
+            }
+        }
+
+        public void Clear()
+        {
+            board = new bool[Width, Height];
+        }
     }
 }

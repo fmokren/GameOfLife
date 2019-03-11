@@ -13,14 +13,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Button Background="White" Click="PlayButton">Play</Button>
-            <Button Background="White" Click="RandomButton">Random</Button>
+            <Button x:Name="PlayButton" Background="White" Click="Play">Play</Button>
+            <Button x:Name="RandomizeButton" Background="White" Click="Randomize">Randomize</Button>
+            <Button x:Name="ClearButton" Background="White" Click="Clear">Clear</Button>
         </StackPanel>
-        <Canvas x:Name="LifeCanvas" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="LifeCanvas_Tapped" Background="Cornsilk" SizeChanged="LifeCanvas_SizeChanged">
-            <!--<Rectangle x:Name="MyRectangle" Fill="Red" Canvas.Left="0" Canvas.Top="0" Width="15" Height="15"/>
-            <Rectangle Fill="Red" Canvas.Left="17" Canvas.Top="0" Width="15" Height="15"/>
-            <Rectangle Fill="Red" Canvas.Left="17" Canvas.Top="17" Width="15" Height="15"/>
-            <Rectangle Fill="Red" Canvas.Left="0" Canvas.Top="17" Width="15" Height="15"/>-->
-        </Canvas>
+        <local:LifeCanvas x:Name="LifeCanvas" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Cornsilk" />
     </Grid>
 </Page>

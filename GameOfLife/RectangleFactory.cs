@@ -16,6 +16,8 @@ namespace GameOfLife
         public static readonly double minSeparation = 2.0;
         public static readonly Color aliveColor = Colors.DarkRed;
         public static readonly Color deadColor = Colors.AntiqueWhite;
+        public static readonly SolidColorBrush aliveBrush = new SolidColorBrush(aliveColor);
+        public static readonly SolidColorBrush deadBrush = new SolidColorBrush(deadColor);
 
         public static Rectangle CreateRectangle()
         {
@@ -29,9 +31,7 @@ namespace GameOfLife
 
             rectangle.Tapped += 
                 (s, te) => {
-                    bool state = !(bool)rectangle.Tag;
-                    rectangle.Tag = state;
-                    rectangle.Fill = new SolidColorBrush(state ? aliveColor : deadColor);
+                    rectangle.Toggle();
                 };
 
             return rectangle;

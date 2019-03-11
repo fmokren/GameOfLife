@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -24,60 +25,32 @@ namespace GameOfLife
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        
-
         public MainPage()
         {
             this.InitializeComponent();
         }
 
-        private void LifeCanvas_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Play(object sender, RoutedEventArgs e)
         {
-            var p = e.GetPosition(this.LifeCanvas);
-        }
-
-        private void LifeCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            LifeCanvas.Children.Clear();
-            int numColumns = NumberOfTilesPerDimension(e.NewSize.Width);
-            int numRows = NumberOfTilesPerDimension(e.NewSize.Height);
-
-            double colSeparation = SeparationWidth(e.NewSize.Width, numColumns);
-            double rowSeparation = SeparationWidth(e.NewSize.Height, numRows);
-
-            for (int r = 0; r < numRows; r++)
+            LifeCanvas.Play();
+            if(LifeCanvas.IsPlaying)
             {
-                for (int c = 0; c < numColumns; c++)
-                {
-                    Rectangle rectangle = RectangleFactory.CreateRectangle();
-
-                    LifeCanvas.Children.Add(rectangle);
-
-                    Canvas.SetLeft(rectangle, c * (RectangleFactory.tileDimension + colSeparation));
-                    Canvas.SetTop(rectangle, r * (RectangleFactory.tileDimension + rowSeparation));
-                }
+                PlayButton.Content = "Pause";
+            }
+            else
+            {
+                PlayButton.Content = "Play";
             }
         }
 
-        private void MainPage_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Randomize(object send, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            LifeCanvas.Randomize();
         }
 
-        private static int NumberOfTilesPerDimension(double dimension)
+        private void Clear(object send, RoutedEventArgs e)
         {
-            return (int)Math.Floor((dimension - RectangleFactory.minSeparation) / (RectangleFactory.tileDimension + RectangleFactory.minSeparation));
-        }
-
-        private static double SeparationWidth(double dimension, int numberOfTiles)
-        {
-            double delta = dimension - ((RectangleFactory.tileDimension * numberOfTiles) + (RectangleFactory.minSeparation * (numberOfTiles - 1)));
-            return (delta / (numberOfTiles - 1)) + RectangleFactory.minSeparation;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            LifeCanvas.Clear();
         }
     }
 }

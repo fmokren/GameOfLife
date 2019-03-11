@@ -120,6 +120,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="LifeBoard.cs" />
+    <Compile Include="LifeCanvas.cs" />
+    <Compile Include="RectangleExtensions.cs" />
     <Compile Include="RectangleFactory.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
