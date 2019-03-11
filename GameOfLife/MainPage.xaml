@@ -7,9 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
     <Grid>
-        <Canvas x:Name="LifeCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="LifeCanvas_Tapped" Background="Cornsilk" SizeChanged="LifeCanvas_SizeChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button Background="White" Click="PlayButton">Play</Button>
+            <Button Background="White" Click="RandomButton">Random</Button>
+        </StackPanel>
+        <Canvas x:Name="LifeCanvas" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="LifeCanvas_Tapped" Background="Cornsilk" SizeChanged="LifeCanvas_SizeChanged">
             <!--<Rectangle x:Name="MyRectangle" Fill="Red" Canvas.Left="0" Canvas.Top="0" Width="15" Height="15"/>
             <Rectangle Fill="Red" Canvas.Left="17" Canvas.Top="0" Width="15" Height="15"/>
             <Rectangle Fill="Red" Canvas.Left="17" Canvas.Top="17" Width="15" Height="15"/>

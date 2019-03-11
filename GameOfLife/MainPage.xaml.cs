@@ -74,5 +74,10 @@ namespace GameOfLife
             double delta = dimension - ((RectangleFactory.tileDimension * numberOfTiles) + (RectangleFactory.minSeparation * (numberOfTiles - 1)));
             return (delta / (numberOfTiles - 1)) + RectangleFactory.minSeparation;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
