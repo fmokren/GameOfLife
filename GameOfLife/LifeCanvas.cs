@@ -63,11 +63,10 @@ namespace GameOfLife
                     }
                     else
                     {
-                        Rectangle rectangle = RectangleFactory.CreateRectangle();
+                        Rectangle rectangle = RectangleFactory.CreateRectangle(board, c, r);
 
                         Children.Add(rectangle);
-                        rectangle.SetModel(board, c, r);
-
+                        
                         Canvas.SetLeft(rectangle, c * (RectangleFactory.tileDimension + colSeparation));
                         Canvas.SetTop(rectangle, r * (RectangleFactory.tileDimension + rowSeparation));
 

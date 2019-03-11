@@ -13,7 +13,7 @@ namespace GameOfLife
         public static readonly SolidColorBrush aliveBrush = new SolidColorBrush(aliveColor);
         public static readonly SolidColorBrush deadBrush = new SolidColorBrush(deadColor);
 
-        public static Rectangle CreateRectangle()
+        public static Rectangle CreateRectangle(LifeBoard board, int column, int row)
         {
             Rectangle rectangle = new Rectangle()
             {
@@ -22,6 +22,8 @@ namespace GameOfLife
                 Fill = new SolidColorBrush(deadColor),
                 Tag = false
             };
+
+            rectangle.SetModel(board, column, row);
 
             rectangle.Tapped += 
                 (s, te) => {
