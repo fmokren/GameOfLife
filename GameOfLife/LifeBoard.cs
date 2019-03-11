@@ -64,25 +64,29 @@ namespace GameOfLife
                     {
                         continue;
                     }
-                    if(yo == -1)
+
+                    int xn = xo + x;
+                    int yn = yo + y;
+
+                    if(yn == -1)
                     {
-                        yo = Height - 1;
+                        yn = Height - 1;
                     }
-                    else if(yo == Height)
+                    else if(yn == Height)
                     {
-                        yo = 0;
+                        yn = 0;
                     }
 
-                    if (xo == -1)
+                    if (xn == -1)
                     {
-                        xo = Width - 1;
+                        xn = Width - 1;
                     }
-                    else if(xo == Width)
+                    else if(xn == Width)
                     {
-                        xo = 0;
+                        xn = 0;
                     }
 
-                    if(this[x+xo, y+yo])
+                    if(this[xn, yn])
                     {
                         aliveCount++;
                     }
