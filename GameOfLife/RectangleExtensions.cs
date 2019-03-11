@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Shapes;
+﻿using Windows.UI.Xaml.Shapes;
 
 namespace GameOfLife
 {
-    public class RectangleTag
-    {
-        public LifeBoard Board { get; set; }
-        public int Column { get; set; }
-        public int Row { get; set; }
-    }
     public static class RectangleExtensions
     {
         public static void SetModel(this Rectangle r, LifeBoard board, int column, int row)
@@ -23,6 +12,8 @@ namespace GameOfLife
                 Column = column,
                 Row = row
             };
+
+            r.Fill = board[column, row] ? RectangleFactory.aliveBrush : RectangleFactory.deadBrush;
         }
 
         public static LifeBoard Board(this Rectangle r)

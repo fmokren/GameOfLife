@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
@@ -12,8 +9,10 @@ namespace GameOfLife
     public class LifeCanvas : Canvas
     {
         private LifeBoard board;
-        private int columns;
-        private int rows;
+        private int columns = 0;
+        private int rows = 0;
+
+        private Rectangle[,] controls;
         public bool IsPlaying { get; private set; }
 
         public LifeCanvas() : base()
@@ -24,35 +23,62 @@ namespace GameOfLife
 
         private void SizeChangedHandler(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
         {
-            Children.Clear();
-            columns = NumberOfTilesPerDimension(e.NewSize.Width);
-            rows = NumberOfTilesPerDimension(e.NewSize.Height);
+            int columnsN = NumberOfTilesPerDimension(e.NewSize.Width);
+            int rowsN = NumberOfTilesPerDimension(e.NewSize.Height);
 
             if (board == null)
             {
-                board = new LifeBoard(columns, rows);
+                board = new LifeBoard(columnsN, rowsN);
             }
             else
             {
-                board = new LifeBoard(board, columns, rows);
+                board = new LifeBoard(board, columnsN, rowsN);
             }
 
-            double colSeparation = SeparationWidth(e.NewSize.Width, columns);
-            double rowSeparation = SeparationWidth(e.NewSize.Height, rows);
+            Rectangle[,] controlsN = new Rectangle[columnsN, rowsN];
 
-            for (int r = 0; r < rows; r++)
+            double colSeparation = SeparationWidth(e.NewSize.Width, columnsN);
+            double rowSeparation = SeparationWidth(e.NewSize.Height, rowsN);
+
+            for (int r = 0; r < Math.Max(rows, rowsN); r++)
             {
-                for (int c = 0; c < columns; c++)
+                for (int c = 0; c < Math.Max(columns, columnsN); c++)
                 {
-                    Rectangle rectangle = RectangleFactory.CreateRectangle();
-                    rectangle.SetModel(board, c, r);
+                    if (r < rows && c < columns)
+                    {
+                        if (r < rowsN && c < columnsN)
+                        {
+                            Rectangle rectangle = controls[c, r];
+                            rectangle.SetModel(board, c, r);
 
-                    Children.Add(rectangle);
+                            Canvas.SetLeft(rectangle, c * (RectangleFactory.tileDimension + colSeparation));
+                            Canvas.SetTop(rectangle, r * (RectangleFactory.tileDimension + rowSeparation));
 
-                    Canvas.SetLeft(rectangle, c * (RectangleFactory.tileDimension + colSeparation));
-                    Canvas.SetTop(rectangle, r * (RectangleFactory.tileDimension + rowSeparation));
+                            controlsN[c, r] = rectangle;
+                        }
+                        else
+                        {
+                            Children.Remove(controls[c, r]);
+                        }
+                    }
+                    else
+                    {
+                        Rectangle rectangle = RectangleFactory.CreateRectangle();
+
+                        Children.Add(rectangle);
+                        rectangle.SetModel(board, c, r);
+
+                        Canvas.SetLeft(rectangle, c * (RectangleFactory.tileDimension + colSeparation));
+                        Canvas.SetTop(rectangle, r * (RectangleFactory.tileDimension + rowSeparation));
+
+                        controlsN[c, r] = rectangle;
+                    }
                 }
             }
+
+            controls = controlsN;
+            columns = columnsN;
+            rows = rowsN;
         }
 
         private static int NumberOfTilesPerDimension(double dimension)
